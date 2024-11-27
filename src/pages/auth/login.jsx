@@ -8,32 +8,31 @@ import axios from "axios";
 import MainContext from "../../context/context";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin} from "@react-oauth/google"
+import GoogleLoginButton from "../../components/googleLogin";
 
-
-const GOOGLE_CLIENT_ID = "819399806132-u1mlq18p3gosbg71b3nrkh83i7bnnfg9.apps.googleusercontent.com";
 
 const SignInPage = () => {
   const navigate = useNavigate();
-  const { setAuthTokens, setUser } = useContext(MainContext);
+  const { setAuthTokens, setUser,api } = useContext(MainContext);
 
-  // Formik for email/password login
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       rememberMe: false,
     },
+
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
       password: Yup.string().required("Password is required"),
     }),
+
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await axios.post("http://127.0.0.1:8000/user/access/", {
+        const response = await axios.post(`${api}/auth/signin/`, {
           email: values.email,
           password: values.password,
         });
@@ -47,43 +46,7 @@ const SignInPage = () => {
     },
   });
 
-  // Google login success handler
-  const handleGoogleLogin = async (response) => {
-    const token = response.credential; // The token provided by Google
-    console.log(response)
-    if (!token){
-      console.error('No token Found!')
-      return;
-
-    }
-    try {
-      const res = await axios.post("http://127.0.0.1:8000/user/google/auth/", {
-        token,
-      });
-
-      // Handle response based on whether it's a new user or returning user
-      if (res.data.is_new_user) {
-        alert("Welcome! You have successfully signed up.");
-      } else {
-        alert("Welcome back! You have successfully signed in.");
-      }
-
-      // Save tokens to local storage
-      localStorage.setItem("authTokens", JSON.stringify(res.data));
-
-      setAuthTokens(res.data);
-      setUser(jwtDecode(res.data.access));
-      navigate("/home");
-    } catch (error) {
-      console.error("Google login failed", error);
-    }
-  };
-
-  // Google login failure handler
-  const handleGoogleFailure = (response) => {
-    console.error("Google login failed:", response);
-  };
-
+  
   return (
     <div className="h-screen flex bg-gradient-to-br from-orange-50 to-orange-100">
       {/* Left Section (Sign-In Form) */}
@@ -95,7 +58,6 @@ const SignInPage = () => {
         <h2 className="text-4xl font-bold text-orange-600 mb-3">Sign In</h2>
         <p className="text-gray-600 text-sm mb-6">Sign in to stay connected.</p>
         <form className="space-y-6 w-3/4" onSubmit={formik.handleSubmit}>
-          {/* Email */}
           <div>
             <input
               type="email"
@@ -155,16 +117,7 @@ const SignInPage = () => {
           </button>
         </form>
 
-        <div className="mt-8 w-3/4">
-          <GoogleLogin
-            clientId={GOOGLE_CLIENT_ID}
-            buttonText="Sign in with Google"
-            onSuccess={handleGoogleLogin}
-            onFailure={handleGoogleFailure}
-            cookiePolicy={"single_host_origin"}
-            className="w-full flex items-center justify-center gap-3 py-3 border border-gray-300 rounded-full hover:bg-gray-100 transition bg-white"
-          />
-        </div>
+          <GoogleLoginButton/>
 
         <p className="mt-6 text-sm text-gray-600">
           Don't have an account?{" "}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import logo from "../../assets/craveio.png";
@@ -6,9 +6,13 @@ import face from "../../assets/face.jpg";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import GoogleLoginButton from "../../components/googleLogin";
+import MainContext from "../../context/context";
+ 
 
 const SignUpPage = () => {
   const navigate = useNavigate()
+  const {api} = useContext(MainContext)
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -32,12 +36,13 @@ const SignUpPage = () => {
     onSubmit: async (values) => {
       console.log(values)
       try{
-        const response = await axios.post('http://127.0.0.1:8000/user/signup/',{
+        const response = await axios.post(`${api}/auth/signup/`,{
           name: values.fullName,
           email : values.email,
           password : values.password,
           confirmPassword : values.confirmPassword
         })
+        console.log(response)
         navigate('/signin')
       }
       catch(err){
@@ -47,6 +52,7 @@ const SignUpPage = () => {
     },
   });
 
+  
   return (
     <div className="h-screen flex bg-gradient-to-br from-orange-50 to-orange-100">
       <div className="hidden lg:w-1/2 lg:block relative flex items-center justify-center">
@@ -155,18 +161,7 @@ const SignUpPage = () => {
         </form>
 
         {/* Google Sign-in */}
-        <div className="mt-8 w-full lg:w-3/4">
-          <button
-            className="w-full flex items-center justify-center gap-3 py-3 border border-gray-300 rounded-full hover:bg-gray-100 transition bg-white"
-          >
-            <img
-              src="https://image.similarpng.com/very-thumbnail/2020/06/Logo-google-icon-PNG.png"
-              alt="Google Icon"
-              className="w-5 h-5"
-            />
-            <span className="text-gray-700 text-sm">Sign up with Google</span>
-          </button>
-        </div>
+            <GoogleLoginButton/>
 
         <p className="mt-6 text-sm text-gray-600">
           Already have an account?{" "}
