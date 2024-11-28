@@ -12,7 +12,7 @@ const GoogleLoginButton = () => {
     const {setAuthTokens, setUser,api} = useContext(MainContext)
     const navigate = useNavigate()
     const handleGoogleLogin = async (response) => {
-        const token = response.credential; // The token provided by Google
+        const token = response.credential; 
         if (!token){
           console.error('No token Found!')
           return;
@@ -36,7 +36,18 @@ const GoogleLoginButton = () => {
           
           setAuthTokens(tokens);
           setUser(jwtDecode(res.data.access));
-          navigate("/home");
+          const tempUser = jwtDecode(res.data.access)
+          console.log(tempUser.role)
+          if (tempUser.role == 'CUSTOMER'){
+            console.log('customer')
+
+            navigate("/home");
+          }
+          else if (tempUser.role == 'SHOP_OWNER') {
+            console.log('shop')
+            navigate('/restaurant')
+
+          }
         } catch (error) {
           console.error("Google login failed", error);
         }
