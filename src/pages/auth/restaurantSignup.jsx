@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GoogleLoginButton from "../../components/googleLogin";
 import MainContext from "../../context/context";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import { gatewayUrl } from "../../components/urls";
+import { gatewayUrl, gmapsApi } from "../../components/urls";
 
 const RestaurantSignUpPage = () => {
   const navigate = useNavigate();
@@ -154,7 +154,7 @@ const RestaurantSignUpPage = () => {
         <p className="text-sm text-gray-700 font-medium mb-2">
           Please mark your location on the map for verification.
         </p>
-        <LoadScript googleMapsApiKey="AIzaSyAaKeqh8qSsAbsEOsiKvCOl2VpWgeUJRn8">
+        <LoadScript googleMapsApiKey={gmapsApi}>
           <GoogleMap
             mapContainerStyle={{ width: "100%", height: "100%" }}
             center={{ lat: 11.1452613, lng: 76.11923 }}
