@@ -1,13 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const PartnerShip = () => {
   return (
     <div className="bg-orange-50 py-12">
-      {/* Header Section */}
       <div className="container mx-auto px-6 lg:px-12">
         <div className="bg-white shadow-lg rounded-xl p-8 lg:p-16">
           <div className="flex flex-col lg:flex-row items-center lg:justify-between">
-            {/* Text Section */}
             <div className="lg:w-1/2 space-y-6">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-800">
                 Partner with{" "}
@@ -19,16 +18,15 @@ const PartnerShip = () => {
                 customers to your restaurant.
               </p>
               <div className="flex space-x-4">
-                <button className="bg-orange-500 text-white px-6 py-3 rounded-md shadow-md font-medium hover:bg-orange-600">
+                <Link to='/restaurantjoin' className="bg-orange-500 text-white px-6 py-3 rounded-md shadow-md font-medium hover:bg-orange-600">
                   Register Your Restaurant
-                </button>
+                </Link>
                 <button className="bg-orange-100 text-orange-600 px-6 py-3 rounded-md shadow-md font-medium hover:bg-orange-200">
                   Join as Delivery Partner
                 </button>
               </div>
             </div>
 
-            {/* Image Column */}
             <div className="lg:w-1/3 mt-8 lg:mt-0">
               <div className="rounded-lg shadow-sm overflow-hidden">
                 <img
@@ -42,7 +40,6 @@ const PartnerShip = () => {
         </div>
       </div>
 
-      {/* Get Started Section */}
       <div className="container mx-auto mt-12 px-6 lg:px-12">
         <div className="bg-white shadow-lg rounded-xl p-8 lg:p-16">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
@@ -86,7 +83,6 @@ const PartnerShip = () => {
         </div>
       </div>
 
-      {/* Why Partner Section */}
       <div className="container mx-auto mt-12 px-6 lg:px-12">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
           Why Partner with <span className="text-orange-500">Zomato</span>?

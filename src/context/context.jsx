@@ -10,6 +10,8 @@ export const ContextProvider = ({ children }) => {
     const [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('authTokens')? JSON.parse(localStorage.getItem('authTokens')): null)
     const [user, setUser] = useState(()=> localStorage.getItem('authTokens')? jwtDecode(authTokens.access): null)
 
+    const api = import.meta.env.VITE_PORT
+
     const logout = () => {
         localStorage.removeItem('authTokens')
 
@@ -20,7 +22,8 @@ export const ContextProvider = ({ children }) => {
             authTokens,
             user,
             setUser,
-            setAuthTokens
+            setAuthTokens,
+            api
         }}>
             {children}
         </MainContext.Provider>

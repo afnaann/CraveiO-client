@@ -1,32 +1,13 @@
 import React from 'react';
-import face from "../../assets/face_girl.png"
-
+import face from "../../assets/face_girl.png";
+import pizza from "../../assets/pizza.png";
 
 
 const Home = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      {/* Navigation Bar */}
-      <header className="flex justify-between items-center px-10 py-6">
-        <div className="flex items-center space-x-4">
-          {/* Logo */}
-          <img src="/path-to-logo.png" alt="Logo" className="h-10" />
-          <h1 className="text-2xl font-bold text-gray-800">Craveio</h1>
-        </div>
-        <nav className="flex space-x-8 text-gray-600 font-medium">
-          <a href="#special-offers" className="hover:text-orange-500">Today Special Offers</a>
-          <a href="#why-foodhut" className="hover:text-orange-500">Why FoodHut</a>
-          <a href="#our-menu" className="hover:text-orange-500">Our Menu</a>
-          <a href="#popular-food" className="hover:text-orange-500">Our Popular Food</a>
-        </nav>
-        <button className="px-6 py-2 bg-orange-500 text-white rounded-lg shadow-md hover:bg-orange-600">
-          Login
-        </button>
-      </header>
 
-      {/* Hero Section */}
-      <main className="flex flex-col-reverse lg:flex-row items-center justify-between px-10 lg:px-20 mt-10 lg:mt-20">
-        {/* Left Content */}
+  return (
+    <>
+      <main className="flex flex-col-reverse lg:flex-row items-center justify-between px-10 lg:px-20 mt-10 lg:mt-20 ">
         <div className="lg:w-1/2 text-center lg:text-left">
           <div className="mb-4">
             <span className="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-medium">
@@ -59,33 +40,74 @@ const Home = () => {
         </div>
 
         {/* Right Image */}
-        <div className="lg:w-1/2 relative flex justify-center">
+        <div className="lg:w-1/2 relative flex justify-center mr-20">
           <img
             src={face}
             alt="Food Delivery"
-            className="w-3/4 lg:w-full"
+            className="h-fit w-3/5 rounded-full"
           />
-          <div className="absolute top-0 right-0 flex items-center bg-white p-3 rounded-xl shadow-lg">
+          
+          {/* Box 1: Italian Pizza */}
+          <div className="absolute top-2 right-32 flex items-center bg-white px-4 py-2 rounded-xl shadow-xl transform transition-all hover:scale-105">
             <img
-              src="/path-to-pizza-image.png"
+              src={pizza}
               alt="Pizza"
-              className="h-12 w-12 rounded-full"
+              className="h-20 w-20 rounded-full"
             />
-            <div className="ml-3 text-sm">
+            <div className="text-sm">
               <p className="font-bold text-gray-800">Italian Pizza</p>
               <p className="text-gray-500">$9.50</p>
             </div>
           </div>
-          <div className="absolute bottom-12 left-8 flex items-center bg-white p-3 rounded-xl shadow-lg">
+
+          {/* Box 2: Rating Box */}
+          <div className="absolute bottom-4 left-40 flex items-center bg-white px-4 py-3 rounded-xl shadow-lg transform transition-all hover:scale-105">
             <span className="text-yellow-500 text-2xl">⭐</span>
             <div className="ml-3 text-sm">
               <p className="font-bold text-gray-800">Our Happy Customer</p>
               <p className="text-gray-500">4.9 (1,025 Reviews)</p>
             </div>
           </div>
+
+          {/* Box 3: Fresh Pizza */}
+          <div className="absolute bottom-24 right-28 flex items-center bg-white px-4 py-3 rounded-xl shadow-lg transform transition-all hover:scale-105">
+            <span className="text-green-500 text-2xl">🍕</span>
+            <div className="ml-3 text-sm">
+              <p className="font-bold text-gray-800">Fresh Pizza</p>
+              <p className="text-gray-500">$12.00</p>
+            </div>
+          </div>
+
+          {/* Box 4: Fast Delivery */}
+          <div className="absolute top-24 left-28 flex items-center bg-white px-4 py-3 rounded-xl shadow-lg transform transition-all hover:scale-105">
+            <span className="text-blue-500 text-2xl">🚚</span>
+            <div className="ml-3 text-sm">
+              <p className="font-bold text-gray-800">Fast Delivery</p>
+              <p className="text-gray-500">30 Minutes</p>
+            </div>
+          </div>
+
+          {/* Box 5: Discount Offer */}
+          <div className="absolute bottom-40 left-16 flex items-center bg-white px-4 py-3 rounded-xl shadow-lg transform transition-all hover:scale-105">
+            <span className="text-red-500 text-2xl">🔥</span>
+            <div className="ml-3 text-sm">
+              <p className="font-bold text-gray-800">Hot Deal!</p>
+              <p className="text-gray-500">Save 20% Today</p>
+            </div>
+          </div>
+
+          {/* Box 6: Featured Dish */}
+          <div className="absolute top-44 right-16 flex items-center bg-white px-4 py-3 rounded-xl shadow-lg transform transition-all hover:scale-105">
+            <span className="text-yellow-400 text-2xl">🍽️</span>
+            <div className="ml-3 text-sm">
+              <p className="font-bold text-gray-800">Featured Dish</p>
+              <p className="text-gray-500">Spaghetti</p>
+            </div>
+          </div>
+
         </div>
       </main>
-    </div>
+    </>
   );
 };
 

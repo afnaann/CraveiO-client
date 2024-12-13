@@ -8,11 +8,10 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import GoogleLoginButton from "../../components/googleLogin";
 import MainContext from "../../context/context";
- 
+import { gatewayUrl } from "../../components/urls";
 
 const SignUpPage = () => {
   const navigate = useNavigate()
-  const {api} = useContext(MainContext)
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -36,7 +35,7 @@ const SignUpPage = () => {
     onSubmit: async (values) => {
       console.log(values)
       try{
-        const response = await axios.post(`${api}/auth/signup/`,{
+        const response = await axios.post(`${gatewayUrl}/auth/signup/`,{
           name: values.fullName,
           email : values.email,
           password : values.password,

@@ -9,7 +9,7 @@ import MainContext from "../../context/context";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import GoogleLoginButton from "../../components/googleLogin";
-
+import { gatewayUrl } from "../../components/urls";
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -32,14 +32,20 @@ const SignInPage = () => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await axios.post(`${api}/auth/signin/`, {
+        const response = await axios.post(`${gatewayUrl}/auth/signin/`, {
           email: values.email,
           password: values.password,
         });
         localStorage.setItem("authTokens", JSON.stringify(response.data));
         setAuthTokens(response.data);
         setUser(jwtDecode(response.data.access));
-        navigate("/home");
+        const tempUser = jwtDecode(response.data.access)
+        if (tempUser.role == 'CUSTOMER'){
+          navigate("/home");
+        }
+        else if (tempUser.role == 'SHOP_OWNER') {
+          navigate('/restaurant')
+        }
       } catch (err) {
         console.log(err);
       }
@@ -49,9 +55,7 @@ const SignInPage = () => {
   
   return (
     <div className="h-screen flex bg-gradient-to-br from-orange-50 to-orange-100">
-      {/* Left Section (Sign-In Form) */}
       <div className="w-1/2 flex flex-col justify-center items-start pl-20">
-        {/* Logo */}
         <div className="h-20 w-40 mb-10 bg-transparent">
           <img src={logo} alt="craveio" />
         </div>
@@ -73,7 +77,6 @@ const SignInPage = () => {
             )}
           </div>
 
-          {/* Password */}
           <div>
             <input
               type="password"
@@ -89,7 +92,6 @@ const SignInPage = () => {
             )}
           </div>
 
-          {/* Remember Me */}
           <div className="flex justify-between items-center text-sm">
             <label className="flex items-center text-gray-600">
               <input
@@ -107,7 +109,6 @@ const SignInPage = () => {
             </a>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full py-3 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition text-sm"

@@ -4,12 +4,12 @@ import MainContext from '../context/context';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin} from "@react-oauth/google"
 import { jwtDecode } from 'jwt-decode';
-
+import { gatewayUrl } from './urls';
 const GOOGLE_CLIENT_ID = "819399806132-u1mlq18p3gosbg71b3nrkh83i7bnnfg9.apps.googleusercontent.com";
 
 const GoogleLoginButton = () => {
 
-    const {setAuthTokens, setUser,api} = useContext(MainContext)
+    const {setAuthTokens, setUser} = useContext(MainContext)
     const navigate = useNavigate()
     const handleGoogleLogin = async (response) => {
         const token = response.credential; 
@@ -18,7 +18,7 @@ const GoogleLoginButton = () => {
           return;
         }
         try {
-          const res = await axios.post(`${api}/auth/google/`, {
+          const res = await axios.post(`${gatewayUrl}/auth/google/`, {
             token,
           });
     
